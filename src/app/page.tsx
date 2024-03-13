@@ -13,6 +13,9 @@ export default function Home() {
   const [attempt, setAttempt] = useState(0)
   const [word, setWord] = useState('')
   const [attemptWord, setAttemptWord] = useState(Array(5).fill(''))
+  const [completed, setCompleted] = useState(false)
+
+
   const apiUrl = 'https://random-word-api.herokuapp.com/word?length=5'
 
   async function getWord() {
@@ -43,14 +46,22 @@ export default function Home() {
   }
 
   function submit() {
+    var correctLetters = 0;
     attemptWord.forEach((letter,idx) => {
       const color = verifyLetter(letter,idx)
-      console.log(color)
+
+      if (color == RIGHT_LETTER_RIGHT_POSITION) 
+        correctLetters++;
+
       document.getElementById(
         `attempt-${attempt}-input-${idx}`
       )?.classList.add(color)
     })
     setAttempt(attempt + 1)
+    if (attempt == 5 || correctLetters == 5) {
+      setCompleted(true)
+      setAttempt(99)
+    }
   }
 
   useEffect(() => {
@@ -61,9 +72,12 @@ export default function Home() {
     <div className="container mx-auto flex flex-col justify-between items-center h-[100vh]">
       <Navbar/>
 
-      <h1 className="bg-white font-xl p-5 text-black text-center w-100 rounded mt-5 uppercase">
-        { word }
-      </h1>
+      { completed 
+        ? <h1 className="bg-white font-xl p-5 text-black text-center w-100 rounded mt-5 uppercase">
+            { word }
+          </h1>
+        : null 
+      }
 
       {/* Tentativas */}
       <main className="flex flex-col items-center p-24">
@@ -76,7 +90,7 @@ export default function Home() {
                 key={`attempt-${att}-input-${input}`}
                 disabled={att != attempt} 
                 type="text" 
-                className="rounded border-2 w-10 h-10 uppercase text-black text-center transition duration-500 delay-300"  
+                className="rounded border-2 w-10 h-10 uppercase text-black text-center transition duration-500 delay-300 caret-transparent"  
                 maxLength={1}
               />
             )}
