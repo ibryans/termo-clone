@@ -98,6 +98,8 @@ export default function Home() {
         )}
       </main>
 
+      <span className="p-3">Virtual Keyboard not working yet, only the ENTER key to submit</span>
+
       <Keyboard submit={submit}/>
     </div>
   );
