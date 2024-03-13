@@ -6,8 +6,13 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 
-  const [attempt, setAttempt] = useState(1)
+  const RIGHT_LETTER_WRONG_POSITION = 'bg-yellow-500'
+  const RIGHT_LETTER_RIGHT_POSITION = 'bg-emerald-500'
+  const WRONG_LETTER = 'bg-stone-600'
+
+  const [attempt, setAttempt] = useState(0)
   const [word, setWord] = useState('')
+  const [attemptWord, setAttemptWord] = useState(Array(5).fill(''))
   const apiUrl = 'https://random-word-api.herokuapp.com/word?length=5'
 
   async function getWord() {
@@ -21,6 +26,31 @@ export default function Home() {
     document.getElementById(
       `attempt-${attempt}-input-${nextInput}`
     )?.focus();
+    setAttemptWord((prev) => {
+      prev[input] = inputText
+      return prev;
+    })
+  }
+
+  function verifyLetter(letter: string, idx: number) {
+    if (!word.includes(letter))
+      return WRONG_LETTER;
+
+    if (word.indexOf(letter) == idx)
+      return RIGHT_LETTER_RIGHT_POSITION;
+    else
+      return RIGHT_LETTER_WRONG_POSITION;
+  }
+
+  function submit() {
+    attemptWord.forEach((letter,idx) => {
+      const color = verifyLetter(letter,idx)
+      console.log(color)
+      document.getElementById(
+        `attempt-${attempt}-input-${idx}`
+      )?.classList.add(color)
+    })
+    setAttempt(attempt + 1)
   }
 
   useEffect(() => {
@@ -46,7 +76,7 @@ export default function Home() {
                 key={`attempt-${att}-input-${input}`}
                 disabled={att != attempt} 
                 type="text" 
-                className="rounded border-2 w-10 h-10 uppercase text-black text-center" 
+                className="rounded border-2 w-10 h-10 uppercase text-black text-center transition duration-500 delay-300"  
                 maxLength={1}
               />
             )}
@@ -54,7 +84,7 @@ export default function Home() {
         )}
       </main>
 
-      <Keyboard/>
+      <Keyboard submit={submit}/>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import { FaBackspace } from 'react-icons/fa'
 
-export function Keyboard() {
+export function Keyboard({ submit }: any) {
 
     const keys = [
         ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
@@ -13,7 +13,10 @@ export function Keyboard() {
             { keys.map((line, idx) => 
                 <div key={idx} className="flex flex-row gap-x-3 mb-3 justify-center items-center">
                     { line.map((key,idx) =>
-                        <button key={idx} className="outline outline-1 p-4 text-center rounded hover:bg-slate-500 transition">
+                        <button
+                            onClick={() => key == 'ENTER' ? submit() : null}
+                            key={idx} 
+                            className="outline outline-1 p-4 text-center rounded hover:bg-slate-500 transition">
                             { key }
                         </button>
                     )}
