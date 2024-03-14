@@ -62,9 +62,6 @@ export default function Home() {
   }
 
   function submit() {
-
-    console.log(attemptWord)
-
     if (attemptWord.includes('')) {
       console.log('opa, ainda não')
       return;
@@ -94,10 +91,13 @@ export default function Home() {
       setAttempt(attempt + 1)
       setAttemptWord(Array(5).fill(''))
       setInputOnFocus(0)
-      document.getElementById(
-        `attempt-${attempt+1}-input-${0}`
-      )?.focus();
+      setTimeout(() => {
+        document.getElementById(
+          `attempt-${attempt+1}-input-0`
+        )?.focus();  
+      }, 500);
     }
+
   }
 
   function keyPressed(key: any) {
@@ -148,7 +148,7 @@ export default function Home() {
       <Navbar/>
 
       { completed 
-        ? <h1 className="bg-white font-xl p-3 text-black text-center w-100 rounded mt-5 uppercase transition">
+        ? <h1 className="bg-white font-xl p-3 text-black text-center w-100 rounded mt-5 uppercase">
             Palavra do dia: <strong>{ word }</strong>
           </h1>
         : null 
@@ -167,7 +167,7 @@ export default function Home() {
                 key={`attempt-${att}-input-${input}`}
                 disabled={att != attempt} 
                 type="text" 
-                className="rounded border-2 w-12 h-12 uppercase text-black text-center transition duration-500 delay-300 caret-transparent"  
+                className="rounded border-2 w-12 h-12 uppercase text-black text-center transition-color duration-500 caret-transparent"  
                 maxLength={1}
               />
             )}
