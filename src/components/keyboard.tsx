@@ -16,7 +16,7 @@ export function Keyboard({ submit, selectKey }: any) {
                         <button
                             onClick={() => key == 'ENTER' ? submit() : selectKey(key)}
                             key={idx} 
-                            className="outline outline-1 p-2 text-center rounded hover:bg-slate-500 transition">
+                            className="outline outline-1 p-2 md:p-4 text-center rounded hover:bg-slate-500 transition">
                             { key }
                         </button>
                     )}
