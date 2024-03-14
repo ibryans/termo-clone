@@ -11,12 +11,12 @@ export function Keyboard({ submit, selectKey }: any) {
     return (
         <footer className=''>
             { keys.map((line, idx) => 
-                <div key={idx} className="flex flex-row gap-x-3 mb-3 justify-center items-center">
+                <div key={idx} className="flex flex-row gap-x-2 mb-3 justify-center items-center">
                     { line.map((key,idx) =>
                         <button
                             onClick={() => key == 'ENTER' ? submit() : selectKey(key)}
                             key={idx} 
-                            className="outline outline-1 p-3 text-center rounded hover:bg-slate-500 transition">
+                            className="outline outline-1 p-2 text-center rounded hover:bg-slate-500 transition">
                             { key }
                         </button>
                     )}

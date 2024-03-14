@@ -20,9 +20,10 @@ export default function Home() {
   const apiUrl = 'https://random-word-api.herokuapp.com/word?length=5'
 
   async function getWord() {
-    const response = await fetch(apiUrl)
-    const word = await response.json()
-    setWord(word[0])
+    // const response = await fetch(apiUrl)
+    // const word = await response.json()
+    // setWord(word[0])
+    setWord('braia')
   }
 
   function changeInput(att: number, input: number, inputText: any) {

@@ -11,7 +11,7 @@ export function Navbar() {
                     <FaQuestion />
                 </button>
 
-                <h1 className="text-3xl font-bold pl-12">
+                <h1 className="text-3xl font-bold pl-10">
                     TERMO
                 </h1>
 
